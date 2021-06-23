@@ -55,7 +55,7 @@ int main()
         std::cout << it->name << std::endl;
     }
 
-    std::cout << "Did it" << std::endl;
+    std::cout << "Total: " << fail.size() << std::endl;
 
     return 0;
 }

@@ -26,12 +26,6 @@ static std::vector<std::string> split(std::string& s)
         }
     }
 
-    for (auto it = student.begin(); it != student.end(); it++)
-    {
-        std::cout << " // " + *it; 
-    }
-    std::cout << std::endl;
-
     return student;
 }
 
@@ -42,20 +36,6 @@ bool importStudent(std::vector<StudentInfo>& students, std::vector<std::string>&
     std::stringstream ss;
     int points;
 
-    for (auto it = s.begin(); it != s.end(); it++)
-    {
-        std::cout << " // " + *it; 
-    }
-    std::cout << std::endl;
-
-    // tempS.name = *it;
-    
-
-    // it++;
-    // ss << *it;
-    // ss >> points;
-    // tempS.final = (double)points;
-
     int i = 0;
     for (auto it = s.begin(); it != s.end(); it++)
     {
@@ -65,32 +45,24 @@ bool importStudent(std::vector<StudentInfo>& students, std::vector<std::string>&
         }
         else
         {
-            ss << *it;
-            ss >> points;
+            int pt = std::stoi(*it);
             if (i == 1)
             {
-                tempS.midterm = (double)points;
+                tempS.midterm = (double)pt;
             }
             else if (i == 2)
             {
-                tempS.final = (double)points;
+                tempS.final = (double)pt;
             }
             else
             {
-                tempS.homework.push_back(double(points));
+                tempS.homework.push_back(double(pt));
             }
         }
         i++;
     }
 
     students.push_back(tempS);
-
-    // std::cout << tempS.name << " // " << tempS.midterm << " // " << tempS.final; 
-    // for (auto it = tempS.homework.begin(); it != tempS.homework.end(); it++)
-    // {
-    //     std::cout << " // " << *it;
-    // }
-    // std::cout << std::endl;
 
     return true;
 }
@@ -102,7 +74,7 @@ bool loadGrades(std::fstream* fs, std::vector<StudentInfo>& students)
     if (fs->is_open())
     {
         int i = 0;
-        while (i < 10) //(!fs->eof())
+        while (!fs->eof())
         {
             getline(*fs, line);
             std::vector<std::string> s = split(line);
@@ -110,14 +82,6 @@ bool loadGrades(std::fstream* fs, std::vector<StudentInfo>& students)
 
             i++;
         }
-
-        // auto it = students.begin();
-        // std::cout << it->name << " " << it->midterm << " " << it->final;
-        // for (auto it2 = it->homework.begin(); it2 != it->homework.end(); it2++)
-        // {
-        //     std::cout << " " << *it2;
-        // }
-        // std::cout << std::endl;
 
         return true;
     }
@@ -136,13 +100,14 @@ double getFinalGrade(StudentInfo& student)
     for (auto it = student.homework.begin(); it != student.homework.end(); it++)
     {
         homeworkSum += *it;
-        std::cout << "Sum: " << std::setprecision(5) << *it << std::endl;
     }
+
+    // std::cout << "Sum: " << homeworkSum << std::endl;
     homeworkAverage = homeworkSum / student.homework.size();
 
     final = (0.2 * student.midterm) + (0.4 * student.final) + (0.4 * homeworkAverage);
 
-    std::cout << student.name << " " << final << std::endl; 
+    // std::cout << student.name << " " << final << std::endl; 
     return final;
 
 }
