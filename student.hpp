@@ -8,6 +8,7 @@
 #include <string>
 #include <sstream>
 #include <iomanip>
+#include <algorithm>
 
 #include "utility.hpp"
 
@@ -25,5 +26,8 @@ bool passed(StudentInfo& student);
 std::vector<StudentInfo> getFailingStudents(std::vector<StudentInfo>& students);
 std::vector<StudentInfo> extractFails(std::vector<StudentInfo>& students);
 std::vector<StudentInfo> extractFailsKeepOriginal(std::vector<StudentInfo>& students);
+double optimisticMedian(const StudentInfo& s);
+double calculateMedianHomework(std::vector<double>& homework);
+double medianAnalysis(const std::vector<StudentInfo>& students);
 
 #endif

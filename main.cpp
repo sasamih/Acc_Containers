@@ -20,10 +20,13 @@ int main(int argc, char* argv[])
 
         in.close();
 
-        std::vector<StudentInfo> fail = extractFails(students);
+        // std::vector<StudentInfo> fail = extractFails(students);
 
-        std::cout << "Total passed: " << students.size() << std::endl;
-        std::cout << "Total failed: " << fail.size() << std::endl;
+        // std::cout << "Total passed: " << students.size() << std::endl;
+        // std::cout << "Total failed: " << fail.size() << std::endl;
+
+        double med = medianAnalysis(students);
+        std::cout << "Median grade: " << med << std::endl;
 
     }
     else

@@ -147,4 +147,48 @@ std::vector<StudentInfo> extractFailsKeepOriginal(std::vector<StudentInfo>& stud
     }
     return fails;
 }
+
+double calculateAverageHomework(std::vector<double>& homework)
+{
+    double homeworkSum = 0.0;
+    double homeworkAverage = 0.0;
+
+    for (auto it = homework.begin(); it != homework.end(); it++)
+    {
+        homeworkSum += *it;
+    }
+    homeworkAverage = homeworkSum / homework.size();
     
+    return homeworkAverage;
+}
+
+double optimisticMedian(const StudentInfo& s)
+{
+    std::vector<double> nonzero;
+
+    for (auto it = s.homework.begin(); it != s.homework.end(); it++)
+    {
+        if (*it > 0)
+        {
+            nonzero.push_back(*it);
+        }
+    }
+    std::sort(nonzero.begin(), nonzero.end());
+
+    return median(nonzero);
+}
+
+double medianAnalysis(const std::vector<StudentInfo>& students)
+{
+    std::vector<double>grades;
+
+    std::transform(students.begin(), students.end(), std::back_inserter(grades), optimisticMedian);
+
+    // for (auto it = grades.begin(); it != grades.end(); it++)
+    // {
+    //     std::cout << *it << std::endl;
+    // }
+
+    std::sort(grades.begin(), grades.end());
+    return median(grades);
+}
