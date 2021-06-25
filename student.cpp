@@ -1,34 +1,5 @@
 #include "student.hpp"
 
-static std::vector<std::string> split(std::string& s)
-{
-    typedef std::string::size_type string_size;
-    string_size i = 0, j = 0;
-    std::vector<std::string> student;
-
-    while (i != s.size())
-    {
-        while ((i != s.size()) && isspace(s[i]))
-        {
-            i++;
-        }
-        j = i;
-
-        while ((j != s.size()) && !isspace(s[j]))
-        {
-            j++;
-        }
-
-        if (i != j)
-        {
-            student.push_back(s.substr(i, j-i));
-            i = j;
-        }
-    }
-
-    return student;
-}
-
 bool importStudent(std::vector<StudentInfo>& students, std::vector<std::string>& s)
 {
     StudentInfo tempS;
@@ -134,3 +105,46 @@ std::vector<StudentInfo> getFailingStudents(std::vector<StudentInfo>& students)
 
     return fail;
 }
+
+std::vector<StudentInfo> extractFails(std::vector<StudentInfo>& students)
+{
+    std::vector<StudentInfo> fails;
+    std::vector<StudentInfo> pass;
+
+    for (auto it = students.begin(); it != students.end(); it++)
+    {
+        if (passed(*it))
+        {
+            pass.push_back(*it);
+        }
+        else
+        {
+            fails.push_back(*it);
+        }
+    }
+
+    students = pass;
+    return fails;
+}
+
+std::vector<StudentInfo> extractFailsKeepOriginal(std::vector<StudentInfo>& students)
+{
+    std::vector<StudentInfo> fails;
+
+    int i = 0;
+    for (auto it = students.begin(); it != students.end(); it++, i++)
+    {
+        if (passed(*it))
+        {
+            // pass.push_back(*it);
+            students.insert(students.begin(),*it);
+            it = students.erase(students.begin() + i);
+        }
+        else
+        {
+            fails.push_back(*it);
+        }
+    }
+    return fails;
+}
+    

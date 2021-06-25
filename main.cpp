@@ -4,58 +4,42 @@
 #include <cstdlib>
 
 #include "student.hpp"
+#include "utility.hpp"
 
-static void populateGrades()
+int main(int argc, char* argv[])
 {
-    std::fstream in;
-    std::fstream out;
-    std::string line;
-    std::vector<std::string> students;
-
-    in.open("students.txt", std::ios::in);
-    out.open("grades.txt", std::ios::out);
-
-    if (out.is_open() && in.is_open())
+    if (argc == 2)
     {
-        while(!in.eof())
-        {
-            getline(in, line);
-            for (int i = 0; i < 12; i++)
-            {
-                int points = rand() % 101;
-                line += " " + std::to_string(points);
-            }
-            students.push_back(line);
-        }
+        std::fstream in;
 
-        auto it = students.begin();
-        for (; it != students.end(); it++)
+        in.open(argv[1], std::ios::in);
+
+        std::vector<StudentInfo> students;
+
+        loadGrades(&in, students);
+
+        in.close();
+
+        std::vector<StudentInfo> fail = extractFails(students);
+
+        std::cout << "Total passed: " << students.size() << std::endl;
+        std::cout << "Total failed: " << fail.size() << std::endl;
+
+    }
+    else
+    {
+        std::vector<std::string> v;
+        
+        std::string in;
+        getline(std::cin, in);
+        v = split(in);
+
+        std::vector<std::string> r = frame(v);
+
+        for (auto it = r.begin(); it != r.end(); it++)
         {
-            out << *it << std::endl;
+            std::cout << *it << std::endl;
         }
     }
-}
-
-int main()
-{
-    std::fstream in;
-
-    in.open("grades.txt", std::ios::in);
-
-    std::vector<StudentInfo> students;
-
-    loadGrades(&in, students);
-
-    in.close();
-
-    std::vector<StudentInfo> fail = getFailingStudents(students);
-
-    for (auto it = fail.begin(); it != fail.end(); it++)
-    {
-        std::cout << it->name << std::endl;
-    }
-
-    std::cout << "Total: " << fail.size() << std::endl;
-
     return 0;
 }

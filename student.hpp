@@ -9,6 +9,8 @@
 #include <sstream>
 #include <iomanip>
 
+#include "utility.hpp"
+
 struct StudentInfo
 {
     std::string name;
@@ -21,5 +23,7 @@ bool importStudent(std::vector<StudentInfo>& students, std::vector<std::string>&
 double getFinalGrade(StudentInfo& student);
 bool passed(StudentInfo& student);
 std::vector<StudentInfo> getFailingStudents(std::vector<StudentInfo>& students);
+std::vector<StudentInfo> extractFails(std::vector<StudentInfo>& students);
+std::vector<StudentInfo> extractFailsKeepOriginal(std::vector<StudentInfo>& students);
 
 #endif
