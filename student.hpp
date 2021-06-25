@@ -21,13 +21,16 @@ struct StudentInfo
 
 bool loadGrades(std::fstream*, std::vector<StudentInfo>&);
 bool importStudent(std::vector<StudentInfo>& students, std::vector<std::string>& s);
-double getFinalGrade(StudentInfo& student);
-bool passed(StudentInfo& student);
-std::vector<StudentInfo> getFailingStudents(std::vector<StudentInfo>& students);
-std::vector<StudentInfo> extractFails(std::vector<StudentInfo>& students);
-std::vector<StudentInfo> extractFailsKeepOriginal(std::vector<StudentInfo>& students);
+double getFinalGrade(StudentInfo& student, double homeworkMethod(const std::vector<double>&));
+double calculateHomeworkPoints(std::vector<double>&, double calculateMethod(const std::vector<double>&));
+bool passed(StudentInfo& student, double homeworkMethod(const std::vector<double>&));
+std::vector<StudentInfo> getFailingStudentsAverage(std::vector<StudentInfo>& students);
+std::vector<StudentInfo> extractFailsAverage(std::vector<StudentInfo>& students);
+std::vector<StudentInfo> extractFailsKeepOriginalAverage(std::vector<StudentInfo>& students);
+std::vector<StudentInfo> getFailingStudentsMedian(std::vector<StudentInfo>& students);
+std::vector<StudentInfo> extractFailsMedian(std::vector<StudentInfo>& students);
+std::vector<StudentInfo> extractFailsKeepOriginalMedian(std::vector<StudentInfo>& students);
 double optimisticMedian(const StudentInfo& s);
-double calculateMedianHomework(std::vector<double>& homework);
 double medianAnalysis(const std::vector<StudentInfo>& students);
 
 #endif

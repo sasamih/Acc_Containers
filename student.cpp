@@ -62,42 +62,40 @@ bool loadGrades(std::fstream* fs, std::vector<StudentInfo>& students)
     }
 }
 
-double getFinalGrade(StudentInfo& student)
+double getFinalGrade(StudentInfo& student, double homeworkMethod(const std::vector<double>&))
 {
-    double homeworkSum = 0.0;
-    double homeworkAverage = 0.0;
+    double homeworkPoints = 0.0;
     double final = 0.0;
 
-    for (auto it = student.homework.begin(); it != student.homework.end(); it++)
-    {
-        homeworkSum += *it;
-    }
+    homeworkPoints = calculateHomeworkPoints(student.homework, homeworkMethod);
 
-    // std::cout << "Sum: " << homeworkSum << std::endl;
-    homeworkAverage = homeworkSum / student.homework.size();
+    final = (0.2 * student.midterm) + (0.4 * student.final) + (0.4 * homeworkPoints);
 
-    final = (0.2 * student.midterm) + (0.4 * student.final) + (0.4 * homeworkAverage);
-
-    // std::cout << student.name << " " << final << std::endl; 
+    // std::cout << student.name << " " << final << " " << homeworkPoints << std::endl; 
     return final;
 
 }
 
-bool passed(StudentInfo& student)
+bool passed(StudentInfo& student, double homeworkMethod(const std::vector<double>&))
 {
-    if (getFinalGrade(student) > 50)
+    if (getFinalGrade(student, homeworkMethod) > 50)
         return true;
     else
         return false;
 }
 
-std::vector<StudentInfo> getFailingStudents(std::vector<StudentInfo>& students)
+double calculateHomeworkPoints(std::vector<double>& v, double calculateMethod(const std::vector<double>&))
+{
+    return calculateMethod(v);
+}
+
+std::vector<StudentInfo> getFailingStudentsAverage(std::vector<StudentInfo>& students)
 {
     std::vector<StudentInfo> fail;
 
     for (auto it = students.begin(); it != students.end(); it++)
     {
-        if (!passed(*it))
+        if (!passed(*it, average))
         {
             fail.push_back(*it);
         }
@@ -106,14 +104,29 @@ std::vector<StudentInfo> getFailingStudents(std::vector<StudentInfo>& students)
     return fail;
 }
 
-std::vector<StudentInfo> extractFails(std::vector<StudentInfo>& students)
+std::vector<StudentInfo> getFailingStudentsMedian(std::vector<StudentInfo>& students)
+{
+    std::vector<StudentInfo> fail;
+
+    for (auto it = students.begin(); it != students.end(); it++)
+    {
+        if (!passed(*it, median))
+        {
+            fail.push_back(*it);
+        }
+    }
+
+    return fail;
+}
+
+std::vector<StudentInfo> extractFailsAverage(std::vector<StudentInfo>& students)
 {
     std::vector<StudentInfo> fails;
     std::vector<StudentInfo> pass;
 
     for (auto it = students.begin(); it != students.end(); it++)
     {
-        if (passed(*it))
+        if (passed(*it, average))
         {
             pass.push_back(*it);
         }
@@ -127,16 +140,36 @@ std::vector<StudentInfo> extractFails(std::vector<StudentInfo>& students)
     return fails;
 }
 
-std::vector<StudentInfo> extractFailsKeepOriginal(std::vector<StudentInfo>& students)
+std::vector<StudentInfo> extractFailsMedian(std::vector<StudentInfo>& students)
+{
+    std::vector<StudentInfo> fails;
+    std::vector<StudentInfo> pass;
+
+    for (auto it = students.begin(); it != students.end(); it++)
+    {
+        if (passed(*it, median))
+        {
+            pass.push_back(*it);
+        }
+        else
+        {
+            fails.push_back(*it);
+        }
+    }
+
+    students = pass;
+    return fails;
+}
+
+std::vector<StudentInfo> extractFailsKeepOriginalAverage(std::vector<StudentInfo>& students)
 {
     std::vector<StudentInfo> fails;
 
     int i = 0;
     for (auto it = students.begin(); it != students.end(); it++, i++)
     {
-        if (passed(*it))
+        if (passed(*it, average))
         {
-            // pass.push_back(*it);
             students.insert(students.begin(),*it);
             it = students.erase(students.begin() + i);
         }
@@ -148,18 +181,24 @@ std::vector<StudentInfo> extractFailsKeepOriginal(std::vector<StudentInfo>& stud
     return fails;
 }
 
-double calculateAverageHomework(std::vector<double>& homework)
+std::vector<StudentInfo> extractFailsKeepOriginalMedian(std::vector<StudentInfo>& students)
 {
-    double homeworkSum = 0.0;
-    double homeworkAverage = 0.0;
+    std::vector<StudentInfo> fails;
 
-    for (auto it = homework.begin(); it != homework.end(); it++)
+    int i = 0;
+    for (auto it = students.begin(); it != students.end(); it++, i++)
     {
-        homeworkSum += *it;
+        if (passed(*it, median))
+        {
+            students.insert(students.begin(),*it);
+            it = students.erase(students.begin() + i);
+        }
+        else
+        {
+            fails.push_back(*it);
+        }
     }
-    homeworkAverage = homeworkSum / homework.size();
-    
-    return homeworkAverage;
+    return fails;
 }
 
 double optimisticMedian(const StudentInfo& s)
@@ -183,11 +222,6 @@ double medianAnalysis(const std::vector<StudentInfo>& students)
     std::vector<double>grades;
 
     std::transform(students.begin(), students.end(), std::back_inserter(grades), optimisticMedian);
-
-    // for (auto it = grades.begin(); it != grades.end(); it++)
-    // {
-    //     std::cout << *it << std::endl;
-    // }
 
     std::sort(grades.begin(), grades.end());
     return median(grades);
