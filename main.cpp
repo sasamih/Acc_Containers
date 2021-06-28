@@ -20,13 +20,14 @@ int main(int argc, char* argv[])
 
         in.close();
 
-        std::vector<StudentInfo> fail = extractFailsKeepOriginalAverage(students);
+        rangeStatistics(students);
+        // std::vector<StudentInfo> fail = extractFailsKeepOriginalAverage(students);
 
-        std::cout << "Total passed: " << students.size() << std::endl;
-        std::cout << "Average method - Total failed: " << fail.size() << std::endl;
+        // std::cout << "Total passed: " << students.size() << std::endl;
+        // std::cout << "Average method - Total failed: " << fail.size() << std::endl;
 
-        fail = extractFailsKeepOriginalMedian(students);
-        std::cout << "Median method - Total failed: " << fail.size() << std::endl;
+        // fail = extractFailsKeepOriginalMedian(students);
+        // std::cout << "Median method - Total failed: " << fail.size() << std::endl;
     }
     else
     {

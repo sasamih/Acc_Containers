@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <map>
 #include <cstdlib>
 #include <string>
 #include <sstream>
@@ -24,6 +25,7 @@ bool importStudent(std::vector<StudentInfo>& students, std::vector<std::string>&
 double getFinalGrade(StudentInfo& student, double homeworkMethod(const std::vector<double>&));
 double calculateHomeworkPoints(std::vector<double>&, double calculateMethod(const std::vector<double>&));
 bool passed(StudentInfo& student, double homeworkMethod(const std::vector<double>&));
+void rangeStatistics(std::vector<StudentInfo>& students);
 std::vector<StudentInfo> getFailingStudentsAverage(std::vector<StudentInfo>& students);
 std::vector<StudentInfo> extractFailsAverage(std::vector<StudentInfo>& students);
 std::vector<StudentInfo> extractFailsKeepOriginalAverage(std::vector<StudentInfo>& students);

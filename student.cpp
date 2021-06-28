@@ -84,6 +84,49 @@ bool passed(StudentInfo& student, double homeworkMethod(const std::vector<double
         return false;
 }
 
+void rangeStatistics(std::vector<StudentInfo>& students)
+{
+    std::map<std::string, int> grades;
+    grades.insert(std::pair<std::string, int>("A 90-100", 0));
+    grades.insert(std::pair<std::string, int>("B 80-89", 0));
+    grades.insert(std::pair<std::string, int>("C 70-79", 0));
+    grades.insert(std::pair<std::string, int>("D 60-69", 0));
+    grades.insert(std::pair<std::string, int>("F <60", 0));
+
+    for (auto it = students.begin(); it != students.end(); it++)
+    {
+        double g = getFinalGrade(*it, average);
+        
+        if (g >= 90.0)
+        {
+            ++grades["A 90-100"];
+        }
+        else if (g >= 80.0 && g < 90.0)
+        {
+            ++grades["B 80-89"];
+        }
+        else if (g >= 70.0 && g < 80.0)
+        {
+            ++grades["C 70-79"];
+        }
+        else if (g >= 60.0 && g < 70.0)
+        {
+            ++grades["D 60-69"];
+        }
+        else
+        {
+            ++grades["F <60"];
+        }
+    }
+
+    for (auto it = grades.begin(); it != grades.end(); it++)
+    {
+        std::cout << it->first << " " << it->second << std::endl;
+    }
+
+    return;
+}
+
 double calculateHomeworkPoints(std::vector<double>& v, double calculateMethod(const std::vector<double>&))
 {
     return calculateMethod(v);
