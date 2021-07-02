@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <algorithm>
 
 typedef enum
 {
@@ -34,7 +35,7 @@ class StudentInfo
 
         std::string getName();
         std::vector<double> getHomework();
-        double calculateHomework(double homeworkMethod(const std::vector<double>&));
+        double calculateHomework(double homeworkMethod(std::vector<double>&));
         double getHomeworkPoints();
         double getPoints();
         Grade getGrade();

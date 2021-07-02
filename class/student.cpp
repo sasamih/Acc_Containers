@@ -13,11 +13,23 @@ T average(const std::vector<T>& v)
     return sum / v.size();
 }
 
+template <class T>
+T median(std::vector<T>& v)
+{
+    typedef typename std::vector<T>::size_type sz;
+
+    sz middle = v.size() / 2;
+    std::sort(v.begin(), v.end());
+    auto it = v.begin() + middle;
+    
+    return *it;
+}
+
 StudentInfo::StudentInfo(std::string n, double m, double f, std::vector<double> h): name(n), midterm(m), final(f), homework(h)
 {
     try
     {
-        homeworkPoints = calculateHomework(average);
+        homeworkPoints = calculateHomework(median);
         grade = gradeStudent();
     }
     catch(const char* msg)
@@ -59,7 +71,7 @@ Grade StudentInfo::gradeStudent()
     return grade;
 }
 
-double StudentInfo::calculateHomework(double homeworkMethod(const std::vector<double>&))
+double StudentInfo::calculateHomework(double homeworkMethod(std::vector<double>&))
 {
     // if (homework.empty())
     //     throw "Homework not loaded";
