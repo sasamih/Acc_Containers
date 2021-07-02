@@ -153,7 +153,7 @@ std::vector<StudentInfo> getFailingStudentsMedian(std::vector<StudentInfo>& stud
 
     for (auto it = students.begin(); it != students.end(); it++)
     {
-        if (!passed(*it, median))
+        // if (!passed(*it, median))
         {
             fail.push_back(*it);
         }
@@ -190,14 +190,14 @@ std::vector<StudentInfo> extractFailsMedian(std::vector<StudentInfo>& students)
 
     for (auto it = students.begin(); it != students.end(); it++)
     {
-        if (passed(*it, median))
-        {
+        // if (passed(*it, median))
+        // {
             pass.push_back(*it);
-        }
-        else
-        {
-            fails.push_back(*it);
-        }
+        // }
+        // else
+        // {
+        //     fails.push_back(*it);
+        // }
     }
 
     students = pass;
@@ -231,7 +231,8 @@ std::vector<StudentInfo> extractFailsKeepOriginalMedian(std::vector<StudentInfo>
     int i = 0;
     for (auto it = students.begin(); it != students.end(); it++, i++)
     {
-        if (passed(*it, median))
+        // if (passed(*it, median))
+        if(true)
         {
             students.insert(students.begin(),*it);
             it = students.erase(students.begin() + i);
@@ -257,7 +258,7 @@ double optimisticMedian(const StudentInfo& s)
     }
     std::sort(nonzero.begin(), nonzero.end());
 
-    return median(nonzero);
+    return average(nonzero);
 }
 
 double medianAnalysis(const std::vector<StudentInfo>& students)
@@ -267,5 +268,5 @@ double medianAnalysis(const std::vector<StudentInfo>& students)
     std::transform(students.begin(), students.end(), std::back_inserter(grades), optimisticMedian);
 
     std::sort(grades.begin(), grades.end());
-    return median(grades);
+    return average(grades);
 }

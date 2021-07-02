@@ -21,6 +21,20 @@ int main(int argc, char* argv[])
         in.close();
 
         rangeStatistics(students);
+
+        std::vector<double> v = {25.2, 1.2, 67.5, 13.5, 10.2, 36.7};
+
+        // std::cout << *(find_value(v.begin(), v.end(), 10.2)) << std::endl;
+
+        // std::cout << *(median(v)) << std::endl;
+
+        reverse_vector(v.begin(), v.end());
+
+        for (auto it = v.begin(); it != v.end(); it++)
+        {
+            std::cout << *it << std::endl;
+        }
+
         // std::vector<StudentInfo> fail = extractFailsKeepOriginalAverage(students);
 
         // std::cout << "Total passed: " << students.size() << std::endl;

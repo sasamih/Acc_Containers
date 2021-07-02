@@ -88,25 +88,3 @@ void populateGrades(char* inFile, char* outFile)
     }
 }
 
-double median(const std::vector<double>& v)
-{
-    int middle = v.size() / 2;
-    double homworkMedian = 0.0;
-
-    auto it = v.begin();
-    it += middle;
-    
-    return *it;
-}
-
-double average(const std::vector<double>& v)
-{
-    double sum = 0.0;
-
-    for (auto it = v.begin(); it != v.end(); it++)
-    {
-        sum += *it;
-    }
-
-    return sum / v.size();
-}
