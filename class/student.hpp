@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
 
 typedef enum
 {
@@ -37,6 +38,8 @@ class StudentInfo
         double getHomeworkPoints();
         double getPoints();
         Grade getGrade();
+        
+        friend std::vector<std::string> getStatistics(std::vector<StudentInfo>&, std::ostream&);
 };
 
 #endif

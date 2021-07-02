@@ -66,7 +66,7 @@ static bool loadGrades(std::fstream* fs, std::vector<StudentInfo>& students)
             else
                 non_valid++;
         }
-        std::cout << "Non valid: " << non_valid << std::endl;
+        // std::cout << "Non valid: " << non_valid << std::endl;
 
         return true;
     }
@@ -101,8 +101,10 @@ int main(int argc, char* argv[])
             }
         }
 
-        std::cout << "Total failed: " << failed << std::endl;
-        std::cout << "Total passed: " << passed << std::endl;
+        // std::cout << "Total failed: " << failed << std::endl;
+        // std::cout << "Total passed: " << passed << std::endl;
+
+        getStatistics(students, std::cout);
     }
 
     return 0;
