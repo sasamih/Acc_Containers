@@ -1,5 +1,10 @@
 #include "student.hpp"
 
+int StudentInfo::constructor = 0;
+int StudentInfo::copy = 0;
+int StudentInfo::destructor = 0;
+int StudentInfo::assignment = 0;
+
 template <class T>
 T average(const std::vector<T>& v)
 {
@@ -25,6 +30,11 @@ T median(std::vector<T>& v)
     return *it;
 }
 
+StudentInfo::StudentInfo()
+{
+    constructor++;
+}
+
 StudentInfo::StudentInfo(std::string n, double m, double f, std::vector<double> h): name(n), midterm(m), final(f), homework(h)
 {
     try
@@ -36,7 +46,43 @@ StudentInfo::StudentInfo(std::string n, double m, double f, std::vector<double> 
     {
         std::cerr << msg << std::endl;
     }
-    
+    constructor++; 
+}
+
+StudentInfo::StudentInfo(const StudentInfo& s) : name(s.name)
+{
+    midterm = s.midterm;
+    final = s.final;
+    homework = s.homework;
+    homeworkPoints = s.homeworkPoints;
+    points = s.points;
+    grade = s.grade;
+
+    copy++;
+}
+
+StudentInfo::~StudentInfo()
+{
+    name = "";
+    homework.clear();
+    midterm = final = homeworkPoints = points = 0.0;
+    grade = INSUFFICIENT;
+    destructor++;
+}
+        
+StudentInfo& StudentInfo::operator=(const StudentInfo& rhs)
+{
+    if (&rhs != this)
+    {
+        name = rhs.name;
+        final = rhs.final;
+        homework = rhs.homework;
+        homeworkPoints = rhs.homeworkPoints;
+        points = rhs.points;
+        grade = rhs.grade;
+    }
+    assignment++;
+    return *this;
 }
 
 Grade StudentInfo::gradeStudent()
@@ -193,4 +239,9 @@ double StudentInfo::getPoints()
 Grade StudentInfo::getGrade()
 {
     return grade;
+}
+
+void StudentInfo::setHomeworkPoints(double pt)
+{
+    homeworkPoints = pt;
 }

@@ -28,7 +28,16 @@ class StudentInfo
         Grade grade;
 
     public:
+        static int constructor;
+        static int copy;
+        static int assignment;
+        static int destructor;
+        StudentInfo();  
         StudentInfo(std::string, double, double, std::vector<double>);
+        StudentInfo(const StudentInfo&);
+        ~StudentInfo();
+        
+        StudentInfo& operator=(const StudentInfo&);
 
         Grade gradeStudent();
         bool valid();
@@ -39,6 +48,8 @@ class StudentInfo
         double getHomeworkPoints();
         double getPoints();
         Grade getGrade();
+
+        void setHomeworkPoints(double);
         
         friend std::vector<std::string> getStatistics(std::vector<StudentInfo>&, std::ostream&);
 };

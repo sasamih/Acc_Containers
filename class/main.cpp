@@ -67,6 +67,7 @@ static bool loadGrades(std::fstream* fs, std::vector<StudentInfo>& students)
                 non_valid++;
         }
         // std::cout << "Non valid: " << non_valid << std::endl;
+       
 
         return true;
     }
