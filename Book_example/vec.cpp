@@ -41,7 +41,7 @@ void Vec<T>::create(size_type n, const T& val)
 {
     data = alloc.allocate(n);
     limit = avail = data + n;
-    uninitialized_fill(data, limit, val);
+    std::uninitialized_fill(data, limit, val);
 }
 
 template <class T>
@@ -59,7 +59,7 @@ void Vec<T>::uncreate()
         iterator it = avail;
         while (it != data)
             alloc.destroy(--it);
-        
+
         alloc.deallocate(data, limit - data);
     }
     create();
@@ -115,7 +115,7 @@ typename Vec<T>::iterator Vec<T>::pop_at(iterator it)
     data = newData;
     avail = newAvail;
     limit = data + (size() - 1);
-    
+
     return (data + retDiff);
 }
 
@@ -125,20 +125,20 @@ void Vec<T>::clear()
     uncreate();
 }
 
-int main()
-{
-    Vec<int> v;
-    v.push_back(1);
-    v.push_back(2);
-    v.push_back(3);
-    v.push_back(4);
-    v.push_back(5);
+// int main()
+// {
+//     Vec<int> v;
+//     v.push_back(1);
+//     v.push_back(2);
+//     v.push_back(3);
+//     v.push_back(4);
+//     v.push_back(5);
 
-    std::cout << "Value: " << v[2] << std::endl;  
-    Vec<int>::iterator it = v.begin() + 2;
-    std::cout << "Iter: " << *it << std::endl;
-    it = v.pop_at(it);
-    std::cout << "Iter after pop: " << *it << std::endl;
+//     std::cout << "Value: " << v[2] << std::endl;
+//     Vec<int>::iterator it = v.begin() + 2;
+//     std::cout << "Iter: " << *it << std::endl;
+//     it = v.pop_at(it);
+//     std::cout << "Iter after pop: " << *it << std::endl;
 
-    return 0;
-}
+//     return 0;
+// }
