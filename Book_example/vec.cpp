@@ -48,7 +48,7 @@ template <class T>
 void Vec<T>::create(const_interator b, const_interator e)
 {
     data = alloc.allocate(e - b);
-    limit = avail = uninitialized_copy(b, e, data);
+    limit = avail = std::uninitialized_copy(b, e, data);
 }
 
 template <class T>

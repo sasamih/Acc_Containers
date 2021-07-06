@@ -26,6 +26,16 @@ class Str
         {
             std::copy(b, e, std::back_inserter(data));
         }
+
+        char& operator[](size_type);
+        const char& operator[](size_type) const;
+        const size_type size() const { return data.size(); }
+        Str& operator+=(const Str&);
+        bool operator==(const Str&);
+
+        friend std::istream& operator>>(std::istream&, Str&);
+        friend std::ostream& operator<<(std::ostream&, const Str&);
+        friend bool compare(const Str&, const Str&);
 };
 
 #endif

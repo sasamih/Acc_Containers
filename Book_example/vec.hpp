@@ -45,7 +45,7 @@ template <class T> class Vec
 
         size_type size() const
         {
-            return limit - data;
+            return avail - data;
         }
 
         T& operator[] (size_type i)
@@ -70,12 +70,12 @@ template <class T> class Vec
 
         iterator end()
         {
-            return limit;
+            return avail;
         }
 
         const iterator end() const
         {
-            return limit;
+            return avail;
         }
 
 };
