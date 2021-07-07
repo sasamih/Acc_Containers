@@ -6,6 +6,8 @@
 #include <vector>
 #include <algorithm>
 
+
+
 class Core
 {
     private:
@@ -19,17 +21,17 @@ class Core
     public:
         Core();
         Core(std::istream&);
-        virtual ~Core() {}
+        virtual ~Core() { }
         std::string getName() const;
         virtual std::istream& read(std::istream&);
         std::istream& readHw(std::istream&, std::vector<double>&);
         virtual double grade();
         double grade(double, double, std::vector<double>&);
         double grade(double, double, std::vector<double>&, double homeworkMethod(std::vector<double>&));
+
+        virtual Core* clone() const { return new Core(*this); }
+        friend class StudentInfo;
 };
-
-// template <class T>
-
 
 template <class T>
 T average(const std::vector<T>& v)

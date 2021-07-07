@@ -17,6 +17,8 @@ class Grad : public Core
         Grad(std::istream&);
         double grade();
         std::istream& read(std::istream&);
+
+        Grad* clone() const { return new Grad(*this); }
 };
 
 #endif
