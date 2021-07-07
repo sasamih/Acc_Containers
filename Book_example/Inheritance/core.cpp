@@ -2,12 +2,13 @@
 
 Core::Core() : midterm(0), final(0)
 {
-
+    std::cerr << "Core()" << std::endl;
 }
 
 Core::Core(std::istream& in)
 {
     read(in);
+    std::cerr << "Core(istream&)" << std::endl;
 }
 
 std::string Core::getName() const
@@ -51,6 +52,13 @@ double median(std::vector<double>& v)
     auto it = v.begin() + middle;
 
     return *it;
+}
+
+bool Core::valid() const
+{
+    if ((!homework.empty()) && (midterm != 0.0) && (final != 0.0))
+        return true;
+    return false;
 }
 
 double Core::grade()
