@@ -19,10 +19,6 @@ const char& Str::operator[](size_type i) const
 
 Str& Str::operator+=(const Str& s)
 {
-    // for (Str::size_type i = 0; i < s.size(); i++)
-    // {
-    //     data.push_back(s[i]);
-    // }
     std::copy(s.data.begin(), s.data.end(), std::back_inserter(data));
 
     return *this;
@@ -47,11 +43,13 @@ std::istream& operator>>(std::istream& in, Str& s)
     return in;
 }
 
-std::ostream& operator<<(std::ostream& out, const Str& s)
+std::ostream& operator<<(std::ostream& out, Str& s)
 {
+    std::ostream_iterator<char> oit (out);
+
     for (Str::size_type i = 0; i != s.size(); i++)
     {
-        out << s[i];
+        *oit++ = s[i];
     }
 
     return out;
@@ -79,20 +77,44 @@ bool Str::operator==(const Str& s)
     return compare(*this, s);
 }
 
+bool Str::operator!=(const Str& s)
+{
+    return !compare(*this, s);
+}
+
+Str::operator bool()
+{
+    if (size() == 0)
+        return false;
+    return true;
+}
+
+std::istream& getline(std::istream& in, Str& s)
+{
+    char c;
+    s.data.clear();
+
+    while (in.get(c) && isspace(c));
+
+    if (in)
+    {
+        do s.data.push_back(c);
+        while (in.get(c) && (c != '\n'));
+    }
+
+    return in;
+}
 
 int main()
 {
-    Str s, t, p;
-    Str r;
+    Str s, t;
 
-    std::cin >> s;
+    getline(std::cin, s);
     std::cin >> t;
-    std::cin >> p;
 
-    // r = s + t + p + "!";
-    bool comp = (s == t);
-    std::cout << comp << std::endl;
-    // std::cout << t;
+    s.insert(t.begin(), t.end());
+
+    std::cout << "Linija:" << s << std::endl;
 
     return 0;
 }
