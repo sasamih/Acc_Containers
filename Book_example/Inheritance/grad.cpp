@@ -3,13 +3,12 @@
 
 Grad::Grad() : thesis(0)
 {
-    std::cerr << "Grad()" << std::endl;
+
 }
 
 Grad::Grad(std::istream& in)
 {
     read(in);
-    std::cerr << "Grad(istream&)" << std::endl;
 }
 
 bool Grad::valid() const
@@ -22,6 +21,12 @@ bool Grad::valid() const
 double Grad::grade()
 {
     return std::min(Core::grade(), thesis);
+}
+
+void Grad::regrade(double m, double f)
+{
+    Core::regrade(m, m);
+    thesis = f;
 }
 
 std::istream& Grad::read(std::istream& in)

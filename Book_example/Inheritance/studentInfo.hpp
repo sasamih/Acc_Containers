@@ -6,22 +6,24 @@
 
 #include "core.hpp"
 #include "grad.hpp"
+#include "handle.hpp"
 
 class StudentInfo
 {
     private:
-        Core* cp;
+        Handle<Core> cp;
 
     public:
-        StudentInfo() : cp(0) { }
-        StudentInfo(std::istream& in) : cp(0) { read(in); }
-        StudentInfo(const StudentInfo&);
-        ~StudentInfo() { delete cp; }
-        StudentInfo& operator=(const StudentInfo&);
+        StudentInfo() { }
+        StudentInfo(std::istream& in) { read(in); }
+        // StudentInfo(const StudentInfo&);
+        // ~StudentInfo() { delete cp; }
+        // StudentInfo& operator=(const StudentInfo&);
 
         std::istream& read(std::istream&);
         std::string getName() const;
         double grade();
+        Handle<Core>& getHandler();
         static bool compare(const StudentInfo&, const StudentInfo&);
 };
 

@@ -2,33 +2,8 @@
 
 #include <algorithm>
 
-StudentInfo::StudentInfo(const StudentInfo& s)
-{
-    if (s.cp)
-        cp = s.cp->clone();
-}
-
-StudentInfo& StudentInfo::operator=(const StudentInfo& s)
-{
-    if (&s != this)
-    {
-        delete cp;
-        if (s.cp)
-        {
-            cp = s.cp->clone();
-        }
-        else
-        {
-            cp = 0;
-        }
-    }
-    return *this;
-}
-
 std::istream& StudentInfo::read(std::istream& in)
 {
-    delete cp;
-
     char c;
     in >> c;
 
@@ -57,4 +32,9 @@ double StudentInfo::grade()
 bool StudentInfo::compare(const StudentInfo& s1, const StudentInfo& s2)
 {
     return s1.getName() > s2.getName();
+}
+
+Handle<Core>& StudentInfo::getHandler()
+{
+    return cp;
 }

@@ -2,13 +2,12 @@
 
 Core::Core() : midterm(0), final(0)
 {
-    std::cerr << "Core()" << std::endl;
+
 }
 
 Core::Core(std::istream& in)
 {
     read(in);
-    std::cerr << "Core(istream&)" << std::endl;
 }
 
 std::string Core::getName() const
@@ -74,4 +73,10 @@ double Core::grade(double m, double f, std::vector<double>& hw)
 double Core::grade(double m, double f, std::vector<double>& hw, double homeworkMethod(std::vector<double>&))
 {
     return (0.2 * midterm) + (0.4 * final) + (0.4 * homeworkMethod(hw));
+}
+
+void Core::regrade(double m, double f)
+{
+    midterm = m;
+    final = f;
 }

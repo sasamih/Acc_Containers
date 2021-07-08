@@ -29,6 +29,7 @@ class Core
         double grade(double, double, std::vector<double>&);
         double grade(double, double, std::vector<double>&, double homeworkMethod(std::vector<double>&));
         virtual bool valid() const;
+        virtual void regrade(double, double);
 
         virtual Core* clone() const { return new Core(*this); }
         friend class StudentInfo;

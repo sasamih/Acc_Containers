@@ -18,6 +18,7 @@ class Grad : public Core
         double grade();
         std::istream& read(std::istream&);
         bool valid() const;
+        void regrade(double, double);
 
         Grad* clone() const { return new Grad(*this); }
 };
