@@ -15,7 +15,7 @@ class Grad : public Core
     public:
         Grad();
         Grad(std::istream&);
-        double grade();
+        const double grade() const;
         std::istream& read(std::istream&);
         bool valid() const;
         void regrade(double, double);

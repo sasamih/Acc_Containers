@@ -42,13 +42,16 @@ std::istream& Core::readHw(std::istream& in, std::vector<double>& hw)
     return in;
 }
 
-double median(std::vector<double>& v)
+double median(const std::vector<double>& v)
 {
     typedef typename std::vector<double>::size_type sz;
 
-    sz middle = v.size() / 2;
-    std::sort(v.begin(), v.end());
-    auto it = v.begin() + middle;
+    std::vector<double> t;
+    std::copy(v.begin(), v.end(), std::back_inserter(t));
+
+    sz middle = t.size() / 2;
+    std::sort(t.begin(), t.end());
+    auto it = t.begin() + middle;
 
     return *it;
 }
@@ -60,17 +63,18 @@ bool Core::valid() const
     return false;
 }
 
-double Core::grade()
+const double Core::grade() const
 {
     return grade(midterm, final, homework);
 }
 
-double Core::grade(double m, double f, std::vector<double>& hw)
+const double Core::grade(const double m, const double f, const std::vector<double>& hw) const
 {
     return grade(m, f, hw, median);
 }
 
-double Core::grade(double m, double f, std::vector<double>& hw, double homeworkMethod(std::vector<double>&))
+const double Core::grade(const double m, const double f, const std::vector<double>& hw,
+                        double homeworkMethod(const std::vector<double>&)) const
 {
     return (0.2 * midterm) + (0.4 * final) + (0.4 * homeworkMethod(hw));
 }

@@ -18,7 +18,7 @@ bool Grad::valid() const
     return false;
 }
 
-double Grad::grade()
+const double Grad::grade() const
 {
     return std::min(Core::grade(), thesis);
 }

@@ -25,9 +25,10 @@ class Core
         std::string getName() const;
         virtual std::istream& read(std::istream&);
         std::istream& readHw(std::istream&, std::vector<double>&);
-        virtual double grade();
-        double grade(double, double, std::vector<double>&);
-        double grade(double, double, std::vector<double>&, double homeworkMethod(std::vector<double>&));
+        virtual const double grade() const;
+        const double grade(const double, const double, const std::vector<double>&) const;
+        const double grade(const double, const double, const std::vector<double>&,
+                            double homeworkMethod(const std::vector<double>&)) const;
         virtual bool valid() const;
         virtual void regrade(double, double);
 

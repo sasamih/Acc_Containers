@@ -14,7 +14,7 @@ class StudentInfo
         Handle<Core> cp;
 
     public:
-        StudentInfo() { }
+        StudentInfo() { std::cout << "Kreiran StudentInfo objekat" << std::endl; }
         StudentInfo(std::istream& in) { read(in); }
         // StudentInfo(const StudentInfo&);
         // ~StudentInfo() { delete cp; }
