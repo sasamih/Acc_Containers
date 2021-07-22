@@ -6,6 +6,7 @@
 #include <vector>
 #include <map>
 #include <algorithm>
+#include <tuple>
 
 typedef enum
 {
@@ -51,6 +52,7 @@ class StudentInfo
 
         void setHomeworkPoints(double);
         
+        std::tuple<std::string, int, std::string> getStudentInfo();
         friend std::vector<std::string> getStatistics(std::vector<StudentInfo>&, std::ostream&);
 };
 

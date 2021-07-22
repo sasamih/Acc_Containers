@@ -127,6 +127,43 @@ double StudentInfo::calculateHomework(double homeworkMethod(std::vector<double>&
     return homeworkPoints;
 }
 
+std::tuple<std::string, int, std::string> StudentInfo::getStudentInfo()
+{
+    std::string mark;
+
+    switch (grade)
+    {
+        case INSUFFICIENT:
+            mark = "F";
+            break;
+        
+        case SUFFICIENT:
+            mark = "E";
+            break;
+
+        case GOOD:
+            mark = "D";
+            break;
+
+        case VERY_GODD:
+            mark = "C";
+            break;
+
+        case EXCELENT:
+            mark = "B";
+            break;
+
+        case EXCELENT_R:
+            mark = "A";
+            break;
+
+        default:
+            break;
+    }
+
+    return std::make_tuple(name, points, mark);
+}
+
 std::vector<std::string> getStatistics(std::vector<StudentInfo>& studs, std::ostream& os)
 {
     std::map<Grade, int> marks;

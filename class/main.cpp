@@ -90,16 +90,22 @@ int main(int argc, char* argv[])
 
         int failed = 0;
         int passed = 0;
+        std::string n, m;
         for (auto it = students.begin(); it != students.end(); it++)
         {
-            if (it->getGrade() == INSUFFICIENT)
-            {
-                failed++;
-            }
-            else
-            {
-                passed++;
-            }
+            // if (it->getGrade() == INSUFFICIENT)
+            // {
+            //     failed++;
+            // }
+            // else
+            // {
+            //     passed++;
+            // }
+
+            std::tuple<std::string, int, std::string> tpl = it->getStudentInfo();
+            std::tie(n, std::ignore, m) = tpl;
+
+            std::cout << n << " - " << m << std::endl;
         }
 
         // std::cout << "Total failed: " << failed << std::endl;
