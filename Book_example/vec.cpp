@@ -106,6 +106,7 @@ typename Vec<T>::iterator Vec<T>::pop_at(iterator it)
         retDiff = it - data;
         newData = alloc.allocate(size() - 1);
         newAvail = std::uninitialized_copy(data, it, newData);
+        
         for (auto tmpIt = it + 1; tmpIt != avail; tmpIt++)
         {
             alloc.construct(newAvail++, tmpIt[0]);
@@ -125,20 +126,22 @@ void Vec<T>::clear()
     uncreate();
 }
 
-// int main()
-// {
-//     Vec<int> v;
-//     v.push_back(1);
-//     v.push_back(2);
-//     v.push_back(3);
-//     v.push_back(4);
-//     v.push_back(5);
+int main()
+{
+    Vec<int> v;
+    v.push_back(1);
+    v.push_back(2);
+    v.push_back(3);
+    v.push_back(4);
+    v.push_back(5);
 
-//     std::cout << "Value: " << v[2] << std::endl;
-//     Vec<int>::iterator it = v.begin() + 2;
-//     std::cout << "Iter: " << *it << std::endl;
-//     it = v.pop_at(it);
-//     std::cout << "Iter after pop: " << *it << std::endl;
+    std::cout << "Value: " << v[2] << std::endl;  
+    for (Vec<int>::iterator iter1 = v.begin(); iter1 != v.end(); iter1++)
+        std::cout << "Iter before pop: " << *iter1 << std::endl;
+    Vec<int>::iterator it = v.begin() + 2;
+    it = v.pop_at(it);
+    for (Vec<int>::iterator iter1 = v.begin(); iter1 != v.end(); iter1++)
+        std::cout << "Iter after pop: " << *iter1 << std::endl;
 
-//     return 0;
-// }
+    return 0;
+}
